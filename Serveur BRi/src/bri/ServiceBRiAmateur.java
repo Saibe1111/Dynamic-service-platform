@@ -21,8 +21,16 @@ public class ServiceBRiAmateur implements Runnable{
             BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
             PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
 
-            out.println("Liste des services"+"##Tapez le numéro de service désiré :");
-            int choix = Integer.parseInt(in.readLine());
+            out.println(ServiceRegistry.toStringue()+"##Tapez le numéro de service désiré :");
+            int choix = 0;
+
+            try{
+                Integer.parseInt(in.readLine());
+            }catch (Exception e ){
+                System.err.println("Impossible de convertir la saisie utilisateur en un int !");
+                return;
+            }
+
 
             System.out.println("Numéro du choix:" + choix);
 

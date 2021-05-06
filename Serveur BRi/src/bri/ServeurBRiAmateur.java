@@ -10,7 +10,9 @@ public class ServeurBRiAmateur implements Runnable{
     public ServeurBRiAmateur(int portAma) {
         System.out.println("Serveur BRi Amateur initialisé");
         try {
+
             socket_ama = new ServerSocket(portAma);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -24,7 +26,6 @@ public class ServeurBRiAmateur implements Runnable{
             }
         }
         catch (IOException ignored) {
-            System.out.println(ignored);
             try {
                 this.socket_ama.close();
             } catch (IOException ignored2) {}

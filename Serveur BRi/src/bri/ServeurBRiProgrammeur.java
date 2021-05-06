@@ -24,7 +24,6 @@ public class ServeurBRiProgrammeur implements Runnable{
                 }
         }
         catch (IOException ignored) {
-            System.out.println(ignored);
             try {
                 this.socket_prog.close();
             } catch (IOException ignored2) {}
