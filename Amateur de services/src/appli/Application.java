@@ -8,7 +8,7 @@ import java.net.Socket;
 
 class Application {
 
-    private final static int PORT_SERVICE = 3000;
+    private final static int PORT_SERVICE = 3001;
     private final static String HOST = "localhost";
 
     public static void main(String[] args) {
