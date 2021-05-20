@@ -17,7 +17,7 @@ public class ServiceRegistry {
 
     private static List<Class<?>> servicesClasses;
 
-    // ajoute une classe de service aprÃ¨s contrÃ´le de la norme BLTi
+    // ajoute une classe de service aprés controle de la norme BLTi
     public static void addService(Class<?> classeName) throws Exception {
 
         int modifiers = classeName.getModifiers();
@@ -25,21 +25,21 @@ public class ServiceRegistry {
         try {
             Method methode = classeName.getMethod("toStringue");
         } catch (NoSuchMethodException | SecurityException e) {
-            throw new Exception("##Erreur : Le service doit avoir une mÃ©thode public static String toStringue()");
+            throw new Exception("##Erreur : Le service doit avoir une méthode public static String toStringue()");
         }
 
         if (Modifier.isPrivate(modifiers))
-            throw new Exception("##Erreur : Le service doit Ãªtre public");
+            throw new Exception("##Erreur : Le service doit être public");
 
         if (Modifier.isAbstract(modifiers))
-            throw new Exception("##Erreur : Le service ne doit pas Ãªtre abstract");
+            throw new Exception("##Erreur : Le service ne doit pas être abstract");
 
         if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
-            throw new Exception("##Erreur : Le service doit implÃ©menter l'interface Service");
+            throw new Exception("##Erreur : Le service doit implémenter l'interface Service");
 
         try {
             servicesClasses.add(classeName);
-            System.out.println("Service ajoutÃ© avec succÃ¨s");
+            System.out.println("Service ajouté avec succès");
         } catch (SecurityException e1) {
             throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
         }
@@ -53,7 +53,7 @@ public class ServiceRegistry {
 
     // liste les activitÃ©s prÃ©sentes
     public static String toStringue() {
-        StringBuilder result = new StringBuilder("ActivitÃ©s prÃ©sentes :##");
+        StringBuilder result = new StringBuilder("Activités présentes :##");
         int i = 0;
         for (Class c : servicesClasses) {
             i++;

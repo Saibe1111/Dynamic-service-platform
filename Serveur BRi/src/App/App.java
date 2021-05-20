@@ -10,7 +10,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        System.out.println("Bienvenue dans votre gestionnaire dynamique d'activitÃ© BRi");
+        System.out.println("Bienvenue dans votre gestionnaire dynamique d'activité BRi");
 
         new Thread(new ServeurBRiProgrammeur(PORT_PROG)).start();
         new Thread(new ServeurBRiAmateur(PORT_AMA)).start();

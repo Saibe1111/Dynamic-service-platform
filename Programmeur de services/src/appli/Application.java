@@ -19,23 +19,15 @@ class Application {
             BufferedReader sin = new BufferedReader (new InputStreamReader(s.getInputStream ( )));
             PrintWriter sout = new PrintWriter (s.getOutputStream ( ), true);
             BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
-
-            System.out.println("Connecté au serveur " + s.getInetAddress() + ":"+ s.getPort());
-
             String line;
-            // menu et choix du service
+            
+            System.out.println("Connect� au serveur " + s.getInetAddress() + ":"+ s.getPort());
+
+            while(true) {
             line = sin.readLine();
             System.out.println(line.replaceAll("##", "\n"));
-            // saisie/envoie du choix
             sout.println(clavier.readLine());
-
-            // réception/affichage de la question
-            System.out.println(sin.readLine());
-            // saisie clavier/envoie au service de la réponse
-            sout.println(clavier.readLine());
-            // réception/affichage de la réponse
-            System.out.println(sin.readLine());
-
+            }
 
         }
         catch (IOException e) { System.err.println("Fin de la connexion"); }

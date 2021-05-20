@@ -8,7 +8,7 @@ public class ServeurBRiAmateur implements Runnable{
     private ServerSocket socket_ama;
 
     public ServeurBRiAmateur(int portAma) {
-        System.out.println("Serveur BRi Amateur initialisÃ©");
+        System.out.println("Serveur BRi Amateur initialisé");
         try {
 
             socket_ama = new ServerSocket(portAma);

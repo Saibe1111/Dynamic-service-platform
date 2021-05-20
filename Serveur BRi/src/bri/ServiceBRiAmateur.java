@@ -6,45 +6,47 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ServiceBRiAmateur implements Runnable{
+public class ServiceBRiAmateur implements Runnable {
 
-    private Socket socket;
+	private Socket socket;
 
-    public ServiceBRiAmateur(Socket s) {
-        socket = s;
-    }
+	public ServiceBRiAmateur(Socket s) {
+		socket = s;
+	}
 
-    @Override
-    public void run() {
-        try {
+	@Override
+	public void run() {
+		try {
 
-            BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
-            PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            out.println(ServiceRegistry.toStringue()+"##Tapez le numÃ©ro de service dÃ©sirÃ© :");
-            int choix = 0;
+			out.println(ServiceRegistry.toStringue() + "##Tapez le numéro de service désiré :");
+			int choix = 0;
 
-            try{
-                Integer.parseInt(in.readLine());
-            }catch (Exception e ){
-                System.err.println("Impossible de convertir la saisie utilisateur en un int !");
-                return;
-            }
+			try {
+				choix = Integer.parseInt(in.readLine());
+			} catch (Exception e) {
+				System.err.println("Impossible de convertir la saisie utilisateur en un int !");
+				return;
+			}
 
+			System.out.println("Numéro du choix : " + choix);
 
-            System.out.println("NumÃ©ro du choix:" + choix);
+		} catch (IOException ignored) {
+		}
+	}
 
+	@Override
+	protected void finalize() {
+		try {
+			this.socket.close();
+		} catch (IOException ignored) {
+		}
+	}
 
-        } catch (IOException ignored) {}
-    }
-
-    @Override
-    protected void finalize()  {
-        try {this.socket.close();} catch (IOException ignored) {}
-    }
-
-    public void start() {
-        (new Thread(this)).start();
-    }
+	public void start() {
+		(new Thread(this)).start();
+	}
 
 }

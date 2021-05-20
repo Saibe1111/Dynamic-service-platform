@@ -20,7 +20,7 @@ class Application {
             PrintWriter sout = new PrintWriter (s.getOutputStream ( ), true);
             BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.println("Connect√© au serveur " + s.getInetAddress() + ":"+ s.getPort());
+            System.out.println("ConnectÈ au serveur " + s.getInetAddress() + ":"+ s.getPort());
 
             String line;
             // menu et choix du service
@@ -29,11 +29,11 @@ class Application {
             // saisie/envoie du choix
             sout.println(clavier.readLine());
 
-            // r√©ception/affichage de la question
+            // rÈception/affichage de la question
             System.out.println(sin.readLine());
-            // saisie clavier/envoie au service de la r√©ponse
+            // saisie clavier/envoie au service de la rÈponse
             sout.println(clavier.readLine());
-            // r√©ception/affichage de la r√©ponse
+            // rÈception/affichage de la r√©ponse
             System.out.println(sin.readLine());
 
 
