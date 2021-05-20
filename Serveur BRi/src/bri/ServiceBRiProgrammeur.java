@@ -104,12 +104,23 @@ public class ServiceBRiProgrammeur implements Runnable {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-
 				break;
 			}
 			case 2: {
-
+				// URLClassLoader sur ftp
+				URLClassLoader urlcl = new URLClassLoader(new URL[] { new URL(p.getFtp()) });
+				
+				out.println("Veuillez donner le nom de votre service à mettre à jour");
+				String service = in.readLine();
+				
+				// charger la classe et la déclarer au ServiceRegistry
+				Class<?> clazz;
+				try {
+					clazz = urlcl.loadClass(p.getLogin() + "." + service);
+					ServiceRegistry.updateService(clazz);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				break;
 			}
 			case 3: {

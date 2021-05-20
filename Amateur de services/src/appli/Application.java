@@ -8,39 +8,35 @@ import java.net.Socket;
 
 class Application {
 
-    private final static int PORT_SERVICE = 3001;
-    private final static String HOST = "localhost";
+	private final static int PORT_SERVICE = 3001;
+	private final static String HOST = "localhost";
 
-    public static void main(String[] args) {
-        Socket s = null;
-        try {
-            s = new Socket(HOST, PORT_SERVICE);
+	public static void main(String[] args) {
+		Socket s = null;
+		try {
+			s = new Socket(HOST, PORT_SERVICE);
 
-            BufferedReader sin = new BufferedReader (new InputStreamReader(s.getInputStream ( )));
-            PrintWriter sout = new PrintWriter (s.getOutputStream ( ), true);
-            BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader sin = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			PrintWriter sout = new PrintWriter(s.getOutputStream(), true);
+			BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+			String line;
 
-            System.out.println("Connecté au serveur " + s.getInetAddress() + ":"+ s.getPort());
+			System.out.println("Connecté au serveur " + s.getInetAddress() + ":" + s.getPort());
 
-            String line;
-            // menu et choix du service
-            line = sin.readLine();
-            System.out.println(line.replaceAll("##", "\n"));
-            // saisie/envoie du choix
-            sout.println(clavier.readLine());
+			while (true) {
+				line = sin.readLine();
+				System.out.println(line.replaceAll("##", "\n"));
+				sout.println(clavier.readLine());
+			}
 
-            // réception/affichage de la question
-            System.out.println(sin.readLine());
-            // saisie clavier/envoie au service de la réponse
-            sout.println(clavier.readLine());
-            // réception/affichage de la rÃ©ponse
-            System.out.println(sin.readLine());
-
-
-        }
-        catch (IOException e) { System.err.println("Fin de la connexion"); }
-        // Refermer dans tous les cas la socket
-        try { if (s != null) s.close(); }
-        catch (IOException ignored) {}
-    }
+		} catch (IOException e) {
+			System.err.println("Fin de la connexion");
+		}
+		// Refermer dans tous les cas la socket
+		try {
+			if (s != null)
+				s.close();
+		} catch (IOException ignored) {
+		}
+	}
 }
