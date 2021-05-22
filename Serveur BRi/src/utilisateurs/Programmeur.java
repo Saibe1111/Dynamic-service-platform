@@ -1,5 +1,6 @@
 package utilisateurs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Programmeur {
@@ -10,14 +11,17 @@ public class Programmeur {
 	
 	static {
         programmeurs = new HashMap<String, Programmeur>();
+		onlineProgrammeurs = new ArrayList<>();
     }
 
     private static HashMap<String, Programmeur> programmeurs;
-    
+	private static ArrayList<String> onlineProgrammeurs;
+
     public static Programmeur inscription(Programmeur p) {
     	if(programmeurs.containsKey(p.getLogin()))
     		return null;
     	programmeurs.put(p.getLogin(), p);
+		Programmeur.addOnlineUser(p.getLogin());
     	return p;
     }
 	
@@ -27,10 +31,12 @@ public class Programmeur {
     
     public static Programmeur connexion(String login, String pwd) {
     	Programmeur p = programmeurs.get(login);
-    	if(p == null)
+    	if(p == null || onlineProgrammeurs.contains(p.getLogin()))
     		return null;
-    	if(p.getPwd().equals(pwd))
-    		return p;
+    	if(p.getPwd().equals(pwd)){
+			Programmeur.addOnlineUser(p.getLogin());
+			return p;
+		}
     	return null;
     }
     
@@ -57,6 +63,15 @@ public class Programmeur {
 	public String getPwd() {
 		return pwd;
 	}
-	
+
+	public static void removeOnlineUser(String s){
+		System.out.println(s + " c'est déconnecté");
+    	onlineProgrammeurs.remove(s);
+	}
+
+	public static void addOnlineUser(String s){
+		System.out.println(s + " c'est connecté");
+		onlineProgrammeurs.add(s);
+	}
 	
 }
