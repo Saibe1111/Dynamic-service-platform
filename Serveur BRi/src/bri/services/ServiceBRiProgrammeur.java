@@ -1,8 +1,7 @@
-package bri;
+package bri.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
@@ -10,36 +9,29 @@ import java.net.URLClassLoader;
 
 import utilisateurs.Programmeur;
 
-public class ServiceBRiProgrammeur implements Runnable {
-
-	private Socket socket;
+public class ServiceBRiProgrammeur extends ServiceBRi {
 
 	public ServiceBRiProgrammeur(Socket s) {
-		socket = s;
+		super(s);
 	}
 
 	@Override
-	public void run() {
+	void process(BufferedReader in, PrintWriter out) throws IOException {
+		out.println("1 - Se connecter##2 - S'inscrire");
+
+		int choix = 0;
 
 		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			choix = Integer.parseInt(in.readLine());
+		} catch (Exception e) {
+			out.println("NumÃ©ro incorrect !!");
+			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
+			return;
+		}
 
-			out.println("1 - Se connecter##2 - S'inscrire");
+		Programmeur p = null;
 
-			int choix = 0;
-
-			try {
-				choix = Integer.parseInt(in.readLine());
-			} catch (Exception e) {
-				out.println("Numéro incorrect !!");
-				System.err.println("Impossible de convertir la saisie utilisateur en un int !");
-				return;
-			}
-
-			Programmeur p = null;
-
-			switch (choix) {
+		switch (choix) {
 			case 1: {
 				out.println("Login");
 				String login = in.readLine();
@@ -59,44 +51,43 @@ public class ServiceBRiProgrammeur implements Runnable {
 				String login = in.readLine();
 				out.println("Veuillez choisir un mot de passe");
 				String mdp = in.readLine();
-				out.println("Veuillez donner l’url de votre serveur ftp");
+				out.println("Veuillez donner lâ€™url de votre serveur ftp");
 				String ftp = in.readLine();
 				p = Programmeur.inscription(login, mdp, ftp);
 				if (p == null) {
-					out.println("Impossible de s'inscrire. Login déjà existant");
-					System.err.println("Impossible d'inscrire. Login déjà existant");
+					out.println("Impossible de s'inscrire. Login dÃ©jÃ  existant");
+					System.err.println("Impossible d'inscrire. Login dÃ©jÃ  existant");
 					return;
 				}
 
 				break;
 			}
 			default:
-				out.println("Numéro incorrect !!");
-				System.err.println("Numéro incorrect !!");
+				out.println("NumÃ©ro incorrect !!");
+				System.err.println("NumÃ©ro incorrect !!");
 				return;
-			}
+		}
 
-			choix = 0;
+		choix = 0;
 
-			out.println(
-					"1 - Fournir un nouveau service##2 - Mettre-à-jour un service##3 - Changer l’adresse du serveur ftp");
-			try {
-				choix = Integer.parseInt(in.readLine());
-			} catch (Exception e) {
-				out.println("Numéro incorrect !!");
-				System.err.println("Impossible de convertir la saisie utilisateur en un int !");
-				return;
-			}
+		out.println(
+				"1 - Fournir un nouveau service##2 - Mettre-Ã -jour un service##3 - Changer lâ€™adresse du serveur ftp");
+		try {
+			choix = Integer.parseInt(in.readLine());
+		} catch (Exception e) {
+			out.println("NumÃ©ro incorrect !!");
+			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
+			return;
+		}
 
-			switch (choix) {
+		switch (choix) {
 			case 1: {
-				// URLClassLoader sur ftp
+
 				URLClassLoader urlcl = new URLClassLoader(new URL[] { new URL(p.getFtp()) });
 
 				out.println("Veuillez donner le nom de votre service");
 				String service = in.readLine();
-				
-				// charger la classe et la déclarer au ServiceRegistry
+
 				Class<?> clazz;
 				try {
 					clazz = urlcl.loadClass(p.getLogin() + "." + service);
@@ -109,11 +100,11 @@ public class ServiceBRiProgrammeur implements Runnable {
 			case 2: {
 				// URLClassLoader sur ftp
 				URLClassLoader urlcl = new URLClassLoader(new URL[] { new URL(p.getFtp()) });
-				
-				out.println("Veuillez donner le nom de votre service à mettre à jour");
+
+				out.println("Veuillez donner le nom de votre service Ã  mettre Ã  jour");
 				String service = in.readLine();
-				
-				// charger la classe et la déclarer au ServiceRegistry
+
+				// charger la classe et la dÃ©clarer au ServiceRegistry
 				Class<?> clazz;
 				try {
 					clazz = urlcl.loadClass(p.getLogin() + "." + service);
@@ -124,29 +115,19 @@ public class ServiceBRiProgrammeur implements Runnable {
 				break;
 			}
 			case 3: {
-				out.println("Veuillez donner l’url de votre serveur ftp");
+				out.println("Veuillez donner lâ€™url de votre serveur ftp");
 				String ftp = in.readLine();
 				p.setFtp(ftp);
 				Programmeur.updateProgammeurs(p);
 				break;
 			}
 			default:
-				out.println("Numéro incorrect !!");
-				System.err.println("Numéro incorrect !!");
+				out.println("NumÃ©ro incorrect !!");
+				System.err.println("NumÃ©ro incorrect !!");
 				return;
-			}
-		} catch (IOException ignored) {
 		}
-
 	}
 
-	@Override
-	protected void finalize() throws IOException {
-		socket.close();
-	}
 
-	public void start() {
-		(new Thread(this)).start();
-	}
 
 }

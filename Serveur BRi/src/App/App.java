@@ -1,7 +1,7 @@
 package App;
 
-import bri.ServeurBRiAmateur;
-import bri.ServeurBRiProgrammeur;
+import bri.serveurs.ServeurBRiAmateur;
+import bri.serveurs.ServeurBRiProgrammeur;
 
 public class App {
 
@@ -10,7 +10,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        System.out.println("Bienvenue dans votre gestionnaire dynamique d'activité BRi");
+        System.out.println("Bienvenue dans votre gestionnaire dynamique d'activitï¿½ BRi");
 
         new Thread(new ServeurBRiProgrammeur(PORT_PROG)).start();
         new Thread(new ServeurBRiAmateur(PORT_AMA)).start();

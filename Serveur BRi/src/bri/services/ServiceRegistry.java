@@ -1,4 +1,6 @@
-package bri;
+package bri.services;
+
+import bri.Service;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -17,7 +19,7 @@ public class ServiceRegistry {
 
 	private static List<Class<?>> servicesClasses;
 
-	// ajoute une classe de service aprés controle de la norme BLTi
+	// ajoute une classe de service aprï¿½s controle de la norme BLTi
 	public static void addService(Class<?> classeName) throws Exception {
 
 		int modifiers = classeName.getModifiers();
@@ -25,21 +27,21 @@ public class ServiceRegistry {
 		try {
 			Method methode = classeName.getMethod("toStringue");
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new Exception("##Erreur : Le service doit avoir une méthode public static String toStringue()");
+			throw new Exception("##Erreur : Le service doit avoir une mï¿½thode public static String toStringue()");
 		}
 
 		if (Modifier.isPrivate(modifiers))
-			throw new Exception("##Erreur : Le service doit être public");
+			throw new Exception("##Erreur : Le service doit ï¿½tre public");
 
 		if (Modifier.isAbstract(modifiers))
-			throw new Exception("##Erreur : Le service ne doit pas être abstract");
+			throw new Exception("##Erreur : Le service ne doit pas ï¿½tre abstract");
 
 		if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
-			throw new Exception("##Erreur : Le service doit implémenter l'interface Service");
+			throw new Exception("##Erreur : Le service doit implï¿½menter l'interface Service");
 
 		try {
 			servicesClasses.add(classeName);
-			System.out.println("Service "+ classeName.getName() +" ajouté avec succès");
+			System.out.println("Service "+ classeName.getName() +" ajoutï¿½ avec succï¿½s");
 		} catch (SecurityException e1) {
 			throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
 		}
@@ -53,17 +55,17 @@ public class ServiceRegistry {
 		try {
 			classeName.getMethod("toStringue");
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new Exception("##Erreur : Le service doit avoir une méthode public static String toStringue()");
+			throw new Exception("##Erreur : Le service doit avoir une mï¿½thode public static String toStringue()");
 		}
 
 		if (Modifier.isPrivate(modifiers))
-			throw new Exception("##Erreur : Le service doit être public");
+			throw new Exception("##Erreur : Le service doit ï¿½tre public");
 
 		if (Modifier.isAbstract(modifiers))
-			throw new Exception("##Erreur : Le service ne doit pas être abstract");
+			throw new Exception("##Erreur : Le service ne doit pas ï¿½tre abstract");
 
 		if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
-			throw new Exception("##Erreur : Le service doit implémenter l'interface Service");
+			throw new Exception("##Erreur : Le service doit implï¿½menter l'interface Service");
 
 		try {
 			for (int i = 0; i < servicesClasses.size(); i++) {
@@ -72,7 +74,7 @@ public class ServiceRegistry {
 			}
 
 			servicesClasses.add(classeName);
-			System.out.println("Service mis à jour avec succès");
+			System.out.println("Service mis ï¿½ jour avec succï¿½s");
 		} catch (SecurityException e1) {
 			throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
 		}
@@ -86,7 +88,7 @@ public class ServiceRegistry {
 
 	// liste les activitÃ©s prÃ©sentes
 	public static String toStringue() {
-		StringBuilder result = new StringBuilder("Activités présentes :##");
+		StringBuilder result = new StringBuilder("Activitï¿½s prï¿½sentes :##");
 		int i = 0;
 		for (Class c : servicesClasses) {
 			i++;
