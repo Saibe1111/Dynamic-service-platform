@@ -27,7 +27,6 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 			Programmeur.removeOnlineUser(p.getLogin());
 		}
 
-
 	}
 
 	private Programmeur connexionInscription(BufferedReader in, PrintWriter out) throws IOException {
@@ -37,7 +36,7 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("NumÃ©ro incorrect !!");
+			out.println("Numéro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return null;
 		}
@@ -62,19 +61,19 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				String login = in.readLine();
 				out.println("Veuillez choisir un mot de passe");
 				String mdp = in.readLine();
-				out.println("Veuillez donner lâ€™url de votre serveur ftp");
+				out.println("Veuillez donner l'url de votre serveur ftp");
 				String ftp = in.readLine();
 				p = Programmeur.inscription(login, mdp, ftp);
 				if (p == null) {
-					out.println("Impossible de s'inscrire. Login dÃ©jÃ  existant");
-					System.err.println("Impossible d'inscrire. Login dÃ©jÃ  existant");
+					out.println("Impossible de s'inscrire. Login déjà  existant");
+					System.err.println("Impossible d'inscrire. Login déjà  existant");
 					return null;
 				}
 				break;
 			}
 			default -> {
-				out.println("NumÃ©ro incorrect !!");
-				System.err.println("NumÃ©ro incorrect !!");
+				out.println("Numéro incorrect !!");
+				System.err.println("Numéro incorrect !!");
 				return null;
 			}
 		}
@@ -85,11 +84,11 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 
 		int choix = 0;
 		out.println(
-				"1 - Fournir un nouveau service##2 - Mettre-Ã -jour un service##3 - Changer lâ€™adresse du serveur ftp##4 - Quitter");
+				"1 - Fournir un nouveau service##2 - Mettre-à-jour un service##3 - Changer l'adresse du serveur ftp##4 - Quitter");
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("NumÃ©ro incorrect !!");
+			out.println("Numéro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return false;
 		}
@@ -115,10 +114,10 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				// URLClassLoader sur ftp
 				URLClassLoader urlcl = new URLClassLoader(new URL[]{new URL(p.getFtp())});
 
-				out.println("Veuillez donner le nom de votre service Ã  mettre Ã  jour");
+				out.println("Veuillez donner le nom de votre service à  mettre à  jour");
 				String service = in.readLine();
 
-				// charger la classe et la dÃ©clarer au ServiceRegistry
+				// charger la classe et la déclarer au ServiceRegistry
 				Class<?> clazz;
 				try {
 					clazz = urlcl.loadClass(p.getLogin() + "." + service);
@@ -129,7 +128,7 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				return true;
 			}
 			case 3 -> {
-				out.println("Veuillez donner lâ€™url de votre serveur ftp");
+				out.println("Veuillez donner l'url de votre serveur ftp");
 				String ftp = in.readLine();
 				p.setFtp(ftp);
 				Programmeur.updateProgammeurs(p);
@@ -139,8 +138,8 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				return false;
 			}
 			default -> {
-				out.println("NumÃ©ro incorrect !!");
-				System.err.println("NumÃ©ro incorrect !!");
+				out.println("Numéro incorrect !!");
+				System.err.println("Numéro incorrect !!");
 				return false;
 			}
 		}

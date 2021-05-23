@@ -16,13 +16,13 @@ public class ServiceBRiAmateur extends ServiceBRi {
 
 	@Override
 	void process(BufferedReader in, PrintWriter out) {
-		out.println(ServiceRegistry.toStringue() + "##Tapez le numÃ©ro du service dÃ©sirÃ© :");
+		out.println(ServiceRegistry.toStringue() + "##Tapez le numéro du service désiré :");
 		int choix = 0;
 
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("NumÃ©ro incorrect !!");
+			out.println("Numéro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return;
 		}

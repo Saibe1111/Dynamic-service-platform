@@ -65,12 +65,12 @@ public class Programmeur {
 	}
 
 	public static void removeOnlineUser(String s){
-		System.out.println(s + " c'est dÃ©connectÃ©");
+		System.out.println(s + " s'est déconnecté");
     	onlineProgrammeurs.remove(s);
 	}
 
 	public static void addOnlineUser(String s){
-		System.out.println(s + " c'est connectÃ©");
+		System.out.println(s + " s'est connecté");
 		onlineProgrammeurs.add(s);
 	}
 	
