@@ -36,7 +36,7 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("Numï¿½ro incorrect !!");
+			out.println("Numéro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return null;
 		}
@@ -65,15 +65,15 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				String ftp = in.readLine();
 				p = Programmeur.inscription(login, mdp, ftp);
 				if (p == null) {
-					out.println("Impossible de s'inscrire. Login dÃ©jÃ  existant");
-					System.err.println("Impossible d'inscrire. Login dÃ©jÃ  existant");
+					out.println("Impossible de s'inscrire. Login déjà  existant");
+					System.err.println("Impossible d'inscrire. Login déjà  existant");
 					return null;
 				}
 				break;
 			}
 			default -> {
-				out.println("NumÃ©ro incorrect !!");
-				System.err.println("NumÃ©ro incorrect !!");
+				out.println("Numéro incorrect !!");
+				System.err.println("Numéro incorrect !!");
 				return null;
 			}
 		}
