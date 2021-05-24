@@ -44,24 +44,24 @@ public class ServiceRegistry {
 		try {
 			classeName.getMethod("toStringue");
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new Exception("##Erreur : Le service doit avoir une m�thode public static String toStringue()");
+			throw new Exception("##Erreur : Le service doit avoir une méthode public static String toStringue()");
 		}
 
 		if (Modifier.isPrivate(modifiers))
-			throw new Exception("##Erreur : Le service doit �tre public");
+			throw new Exception("##Erreur : Le service doit être public");
 
 		if (Modifier.isAbstract(modifiers))
-			throw new Exception("##Erreur : Le service ne doit pas �tre abstract");
+			throw new Exception("##Erreur : Le service ne doit pas être abstract");
 
 		if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
-			throw new Exception("##Erreur : Le service doit impl�menter l'interface Service");
+			throw new Exception("##Erreur : Le service doit implémenter l'interface Service");
 
 	}
 
 	private static void addServiceSansCheckConforme(Class<?> classeName) throws Exception{
 		try {
 			servicesClasses.add(classeName);
-			System.out.println("Service mis � jour avec succ�s");
+			System.out.println("Service mis à jour avec succès");
 		} catch (SecurityException e1) {
 			throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
 		}
@@ -74,7 +74,7 @@ public class ServiceRegistry {
 
 	// liste les activités présentes
 	public static String toStringue() {
-		StringBuilder result = new StringBuilder("Activit�s pr�sentes :##");
+		StringBuilder result = new StringBuilder("Activités présentes :##");
 		int i = 0;
 		for (Class c : servicesClasses) {
 			i++;

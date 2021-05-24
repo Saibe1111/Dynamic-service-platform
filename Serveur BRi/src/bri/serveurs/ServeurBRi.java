@@ -8,7 +8,7 @@ abstract public class ServeurBRi implements Runnable{
     private ServerSocket socket;
 
     public ServeurBRi(int portAma) {
-        System.out.println("Serveur BRi initialisé sur le port:" + portAma);
+        System.out.println("Serveur BRi initialisÃ© sur le port:" + portAma);
         try {
             socket = new ServerSocket(portAma);
         } catch (IOException e) {

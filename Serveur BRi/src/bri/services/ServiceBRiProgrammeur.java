@@ -36,7 +36,7 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("Numéro incorrect !!");
+			out.println("Numï¿½ro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return null;
 		}
@@ -65,15 +65,15 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				String ftp = in.readLine();
 				p = Programmeur.inscription(login, mdp, ftp);
 				if (p == null) {
-					out.println("Impossible de s'inscrire. Login déjà  existant");
-					System.err.println("Impossible d'inscrire. Login déjà  existant");
+					out.println("Impossible de s'inscrire. Login dÃ©jÃ  existant");
+					System.err.println("Impossible d'inscrire. Login dÃ©jÃ  existant");
 					return null;
 				}
 				break;
 			}
 			default -> {
-				out.println("Numéro incorrect !!");
-				System.err.println("Numéro incorrect !!");
+				out.println("NumÃ©ro incorrect !!");
+				System.err.println("NumÃ©ro incorrect !!");
 				return null;
 			}
 		}
@@ -84,11 +84,11 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 
 		int choix = 0;
 		out.println(
-				"1 - Fournir un nouveau service##2 - Mettre-à-jour un service##3 - Changer l'adresse du serveur ftp##4 - Quitter");
+				"1 - Fournir un nouveau service##2 - Mettre-Ã -jour un service##3 - Changer l'adresse du serveur ftp##4 - Quitter");
 		try {
 			choix = Integer.parseInt(in.readLine());
 		} catch (Exception e) {
-			out.println("Numéro incorrect !!");
+			out.println("NumÃ©ro incorrect !!");
 			System.err.println("Impossible de convertir la saisie utilisateur en un int !");
 			return false;
 		}
@@ -114,10 +114,9 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				// URLClassLoader sur ftp
 				URLClassLoader urlcl = new URLClassLoader(new URL[]{new URL(p.getFtp())});
 
-				out.println("Veuillez donner le nom de votre service à  mettre à  jour");
+				out.println("Veuillez donner le nom de votre service Ã  mettre Ã  jour");
 				String service = in.readLine();
 
-				// charger la classe et la déclarer au ServiceRegistry
 				Class<?> clazz;
 				try {
 					clazz = urlcl.loadClass(p.getLogin() + "." + service);
@@ -138,8 +137,8 @@ public class ServiceBRiProgrammeur extends ServiceBRi {
 				return false;
 			}
 			default -> {
-				out.println("Numéro incorrect !!");
-				System.err.println("Numéro incorrect !!");
+				out.println("NumÃ©ro incorrect !!");
+				System.err.println("NumÃ©ro incorrect !!");
 				return false;
 			}
 		}
