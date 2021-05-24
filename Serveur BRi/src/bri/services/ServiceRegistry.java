@@ -22,33 +22,22 @@ public class ServiceRegistry {
 	// ajoute une classe de service apr�s controle de la norme BLTi
 	public static void addService(Class<?> classeName) throws Exception {
 
-		int modifiers = classeName.getModifiers();
-		Class<?>[] interfacesImplementees = classeName.getInterfaces();
-		try {
-			Method methode = classeName.getMethod("toStringue");
-		} catch (NoSuchMethodException | SecurityException e) {
-			throw new Exception("##Erreur : Le service doit avoir une m�thode public static String toStringue()");
-		}
+		isConforme(classeName);
 
-		if (Modifier.isPrivate(modifiers))
-			throw new Exception("##Erreur : Le service doit �tre public");
-
-		if (Modifier.isAbstract(modifiers))
-			throw new Exception("##Erreur : Le service ne doit pas �tre abstract");
-
-		if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
-			throw new Exception("##Erreur : Le service doit impl�menter l'interface Service");
-
-		try {
-			servicesClasses.add(classeName);
-			System.out.println("Service "+ classeName.getName() +" ajout� avec succ�s");
-		} catch (SecurityException e1) {
-			throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
-		}
+		addServiceSansCheckConforme(classeName);
 
 	}
 
 	public static void updateService(Class<?> classeName) throws Exception {
+		isConforme(classeName);
+		for (int i = 0; i < servicesClasses.size(); i++) {
+			if (servicesClasses.get(i).getName().equals(classeName.getName()))
+				servicesClasses.remove(i);
+		}
+		addServiceSansCheckConforme(classeName);
+	}
+
+	private static void isConforme(Class<?> classeName) throws Exception{
 
 		int modifiers = classeName.getModifiers();
 		Class<?>[] interfacesImplementees = classeName.getInterfaces();
@@ -67,18 +56,15 @@ public class ServiceRegistry {
 		if (!Arrays.toString(interfacesImplementees).contains(Service.class.toString()))
 			throw new Exception("##Erreur : Le service doit impl�menter l'interface Service");
 
-		try {
-			for (int i = 0; i < servicesClasses.size(); i++) {
-				if (servicesClasses.get(i).getName().equals(classeName.getName()))
-					servicesClasses.remove(i);
-			}
+	}
 
+	private static void addServiceSansCheckConforme(Class<?> classeName) throws Exception{
+		try {
 			servicesClasses.add(classeName);
 			System.out.println("Service mis � jour avec succ�s");
 		} catch (SecurityException e1) {
 			throw new Exception("##Erreur : Le service doit avoir un constructeur public (Socket)");
 		}
-
 	}
 
 	// renvoie la classe de service (numService -1)
